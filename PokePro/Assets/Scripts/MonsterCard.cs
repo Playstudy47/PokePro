@@ -19,4 +19,20 @@ public class MonsterCard: Card
     private ElementType resistance;
     [SerializeField]
     private int retreatCost;
+
+    public MonsterCard(string card_Code) : base(card_Code)
+    {
+        string filePath = "JSon/";
+
+        TextAsset cardInfo = Resources.Load<TextAsset>(filePath + cardCode);
+
+        this.baseMonster = cardInfo.baseMonster;
+        this.evolved = ReturnEvolve(cardInfo.evolved);
+        this.hp = Int32.Parse(cardInfo.hp);
+        this.type = ReturnElement(cardInfo[5]);
+        this.effects = MakeEffectList(card_Code);
+        this.weakness = ReturnElement(cardInfo[7]);
+        this.resistance = ReturnElement(cardInfo[8]);
+        this.retreatCost = Int32.Parse(cardInfo[9]);
+    }
 }
