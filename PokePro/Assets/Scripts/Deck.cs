@@ -6,8 +6,10 @@ using UnityEngine;
 [Serializable]
 public class Deck : MonoBehaviour
 {
-    public List<Card> deckList;
-    public string deckName;
+    [SerializeField]
+    List<Card> deckList;
+    [SerializeField]
+    string deckName;
 
     public Deck()
     {
