@@ -10,10 +10,34 @@ public class Deck : MonoBehaviour
     List<Card> deckList;
     [SerializeField]
     string deckName;
+    GameObject playerHands;
+    
 
     public Deck()
     {
         deckName = "TestDeck1";
+        
+    }
+
+    void OnMouseDown()
+    {
+        Card c = DrawCard();
+        
+        var card = new GameObject(c.cardName, typeof(SpriteRenderer)).AddComponent<Card>();
+        
+        card = c;
+        // card.GetComponent<SpriteRenderer>().sprite = Resources.Load(c.cardCode, typeof(Sprite)) as Sprite;
+        Debug.Log(card.cardCode);
+
+
+        playerHands.GetComponent<Hands>().AddToHands(card);
+    }
+
+    public Card DrawCard()
+    {
+        Card lastCard = deckList[deckList.Count - 1];
+        deckList.RemoveAt(deckList.Count - 1);
+        return lastCard;
     }
     
     [System.Serializable]
@@ -38,14 +62,16 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerHands = GameObject.Find("Hands");
         TextAsset text = Resources.Load<TextAsset>("Deck/" + deckName);
         
         DeckMaterial deckMaterial = JsonUtility.FromJson<DeckMaterial>(text.text);
         this.deckList = deckMaterial.Parse();
         foreach(Card c in deckList)
         {
-            Debug.Log(c.cardNote);
+            Debug.Log(c.cardCode);
         }
+        Shuffle();
     }
 
     // Update is called once per frame

@@ -4,9 +4,20 @@ using UnityEngine;
 
 public class FieldManager : MonoBehaviour
 {
+    Bench bench_1, bench_2, bench_3, bench_4, bench_5,
+    bench_6, bench_7, bench_8, bench_9, bench_10;
+
+    Stadium stadium;
+
+    Trash trash_1, trash_2;
+    
+    Bench battleField_1, battleField_2;
 
 
+    void Start()
+    {
 
+    }
     // Update is called once per frame
     void Update()
     {
