@@ -26,10 +26,7 @@ public class Deck : MonoBehaviour
         var card = new GameObject(c.cardName, typeof(SpriteRenderer)).AddComponent<Card>();
         
         card = c;
-        // card.GetComponent<SpriteRenderer>().sprite = Resources.Load(c.cardCode, typeof(Sprite)) as Sprite;
         Debug.Log(card.cardCode);
-
-
         playerHands.GetComponent<Hands>().AddToHands(card);
     }
 
@@ -38,6 +35,11 @@ public class Deck : MonoBehaviour
         Card lastCard = deckList[deckList.Count - 1];
         deckList.RemoveAt(deckList.Count - 1);
         return lastCard;
+    }
+
+    public int ReturnCount()
+    {
+        return deckList.Count;
     }
     
     [System.Serializable]
@@ -67,10 +69,6 @@ public class Deck : MonoBehaviour
         
         DeckMaterial deckMaterial = JsonUtility.FromJson<DeckMaterial>(text.text);
         this.deckList = deckMaterial.Parse();
-        foreach(Card c in deckList)
-        {
-            Debug.Log(c.cardCode);
-        }
         Shuffle();
     }
 

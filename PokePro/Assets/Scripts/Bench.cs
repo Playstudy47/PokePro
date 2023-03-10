@@ -6,6 +6,7 @@ public class Bench : MonoBehaviour
 {
     public MonsterCard monster{get; set;}
     public int damageCount{get; set;}
+    public int hp{get; set;}
     public List<ItemCard> tool{get; set;}
     public List<EnergyCard> energy{get; set;}
 
@@ -15,6 +16,8 @@ public class Bench : MonoBehaviour
     public bool isParalyzed{get; set;}
     public bool isBurned{get; set;}
     public bool isSlept{get; set;}
+
+    public List<ImmuneType> immune {get; set;}
 
     // Update is called once per frame
     void Update()
@@ -50,6 +53,9 @@ public class Bench : MonoBehaviour
 
 
 
+
+
+
     void UpdateDictionary()
     {
         benchInfo["EnergyCount"] = energy.Count;
@@ -75,6 +81,12 @@ public class Bench : MonoBehaviour
             return c;
         }
     }
+
+    int ReturnHP()
+    {
+        return monster.hp - damageCount;
+    }
+
     int ReturnCountSpecialEnergy()
     {
         if(energy.Count == 0)
