@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Bench : MonoBehaviour
 {
-    public MonsterCard monster{get; set;}
+    public Card monster{get; set;}
     public int damageCount{get; set;}
     public int hp{get; set;}
-    public List<ItemCard> tool{get; set;}
-    public List<EnergyCard> energy{get; set;}
+    public List<Card> tool{get; set;}
+    public List<Card> energy{get; set;}
 
     public Dictionary<string, int> benchInfo{get; set;}
 
@@ -29,8 +29,8 @@ public class Bench : MonoBehaviour
     {
         monster = null;
         damageCount = 0;
-        tool = new List<ItemCard>();
-        energy = new List<EnergyCard>();
+        tool = new List<Card>();
+        energy = new List<Card>();
         benchInfo = new Dictionary<string, int>()
         {
             {"EnergyCount", 0},
@@ -75,7 +75,7 @@ public class Bench : MonoBehaviour
             int c = 0;
             for(int p = 0; p < energy.Count; ++p)
             {
-                if(energy[p].energyType == EnergyType.Normal)
+                if(energy[p].cardData.energyType == EnergyType.Normal)
                     c++;
             }
             return c;
@@ -84,7 +84,7 @@ public class Bench : MonoBehaviour
 
     int ReturnHP()
     {
-        return monster.hp - damageCount;
+        return monster.cardData.hp - damageCount;
     }
 
     int ReturnCountSpecialEnergy()
@@ -96,7 +96,7 @@ public class Bench : MonoBehaviour
             int c = 0;
             for(int p = 0; p < energy.Count; ++p)
             {
-                if(energy[p].energyType == EnergyType.Special)
+                if(energy[p].cardData.energyType == EnergyType.Special)
                     c++;
             }
             return c;

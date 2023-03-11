@@ -9,7 +9,7 @@ public class FieldManager : MonoBehaviour
 
     Stadium stadium;
 
-    Trash trash_1, trash_2;
+    Trashes trash_1, trash_2;
     
     Bench battleField_1, battleField_2;
 
