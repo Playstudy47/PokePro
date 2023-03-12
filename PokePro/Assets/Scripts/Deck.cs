@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
+
 
 [Serializable]
 public class Deck : MonoBehaviour
@@ -28,11 +28,6 @@ public class Deck : MonoBehaviour
         
         DeckMaterial deckMaterial = JsonUtility.FromJson<DeckMaterial>(text.text);
         this.deckList = deckMaterial.Parse();
-
-        foreach(Card card in deckList)
-        {
-            
-        }
         Shuffle();
     }
 
@@ -40,6 +35,11 @@ public class Deck : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public List<Card> ReturnDeckList()
+    {
+        return deckList;
     }
     public void Shuffle()
     {
@@ -89,12 +89,21 @@ public class Deck : MonoBehaviour
                 CardData cardData = cardMaterial.Parse();
 
                 var newCard = new GameObject(cardData.cardName, typeof(SpriteRenderer)).AddComponent<Card>();
-
                 newCard.frontImage = Resources.Load<Sprite>("CardDataBase/" + cardCode);
                 newCard.backImage = Resources.Load<Sprite>("Card/CardBack");
                 newCard.cardData = cardData;
+                newCard.currentLocation = Location.Deck;
 
                 
+
+                for(int p = 0; p < newCard.cardData.effectCount; p++)
+                {
+                    TextAsset effectText = Resources.Load<TextAsset>("CardEffect/" + cardCode +"_"+(p + 1));
+                    EffectMaterial effectMaterial = JsonUtility.FromJson<EffectMaterial>(effectText.text);
+                    var newEffect = new GameObject(cardData.cardName).AddComponent<CardEffect>();
+                    newEffect.effectData = effectMaterial.Parse();
+                    newCard.cardEffects.Add(newEffect);
+                }
                 list.Add(newCard);
             }
             return list;
